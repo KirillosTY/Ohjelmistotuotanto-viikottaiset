@@ -2,14 +2,14 @@ package ohtu;
 
 import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-import static org.junit.Assert.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+
+import static org.junit.Assert.assertTrue;
 
 public class Stepdefs {
     //WebDriver driver = new ChromeDriver();
@@ -47,12 +47,60 @@ public class Stepdefs {
     @When("username {string} and password {string} are given")
     public void usernameAndPasswordAreGiven(String username, String password) throws Throwable {
         logInWith(username, password);
-    }   
-    
+    }
+
+    @When("incorrect username {string} and random password {string} are given")
+    public void incorrectUsernameAndRandomPasswordAreGiven(String string, String string2) {
+      logInWith(string, string2);
+    }
+
+    @Given("command new user is selected")
+    public void commandNewUserIsSelected() {
+        driver.get(baseUrl);
+        WebElement element = driver.findElement(By.linkText("register new user"));
+        element.click();
+    }
+
+
+    @When("a valid username {string} and mismatching password {string} and  password confirmation {string} are entered")
+    public void aValidUsernameAndMismatchingPasswordAndPasswordConfirmationAreEntered(String string, String string2, String string3) {
+        createUser(string, string2, string3);
+        System.out.println(string2 +" ja " +string3);
+
+    }
+
+
+    @When("a valid username {string} and invalid password {string} and matching password confirmation are entered")
+    public void aValidUsernameAndInvalidPasswordAndMatchingPasswordConfirmationAreEntered(String string, String string2) {
+        createUser(string, string2, string2);
+    }
+
+    @When("too short username {string} and valid password {string} and matching password confirmation are entered")
+    public void tooShortUsernameAndValidPasswordAndMatchingPasswordConfirmationAreEntered(String string, String string2) {
+        createUser(string, string2, string2);
+
+    }
+    @When("a valid username {string} and password {string} and matching password confirmation are entered")
+    public void aValidUsernameAndPasswordAndMatchingPasswordConfirmationAreEntered(String string, String string2) {
+        createUser(string, string2, string2);
+    }
+
+
+    @Then("user is not created and error {string} is reported")
+    public void userIsNotCreatedAndErrorIsReported(String string) {
+        pageHasContent(string);
+    }
+
+    @Then("a new user is created")
+    public void aNewUserIsCreated() {
+        pageHasContent("Welcome to Ohtu Application!");
+    }
+
     @Then("system will respond {string}")
     public void systemWillRespond(String pageContent) throws Throwable {
         assertTrue(driver.getPageSource().contains(pageContent));
     }
+
     
     @After
     public void tearDown(){
@@ -74,4 +122,18 @@ public class Stepdefs {
         element = driver.findElement(By.name("login"));
         element.submit();  
     } 
+    
+    private void createUser(String username, String password, String confirmPassword){
+        assertTrue(driver.getPageSource().contains("Create username and give password"));
+
+        WebElement element = driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element = driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(confirmPassword);
+        element = driver.findElement(By.name("signup"));
+        element.submit();
+
+    }
 }

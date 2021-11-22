@@ -5,7 +5,6 @@ import ohtu.data_access.UserDao;
 import ohtu.io.ConsoleIO;
 import ohtu.io.IO;
 import ohtu.services.AuthenticationService;
-import java.util.Arrays;
 
 public class App {
 
@@ -34,6 +33,19 @@ public class App {
 
             if (command.equals("new")) {
                 String[] usernameAndPasword = ask();
+
+                if(usernameAndPasword[0].length()<3){
+
+                    io.print("username too short");
+                }
+                if(usernameAndPasword[1].length()<8) {
+
+                    io.print("password is too short");
+                }
+                if(!usernameAndPasword[1].matches("[a-z]*[0-9]+[a-z]*")){
+                    io.print("password consists only of letters");
+                }
+
                 if (auth.createUser(usernameAndPasword[0], usernameAndPasword[1])) {
                     io.print("new user registered");
                 } else {
