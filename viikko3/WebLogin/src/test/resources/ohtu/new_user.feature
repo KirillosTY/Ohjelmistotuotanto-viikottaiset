@@ -19,3 +19,4 @@ Feature: A new user account can be created if a proper unused username and passw
     Given command new user is selected
     When  a valid username "liisa" and mismatching password "salainen1" and  password confirmation "salainen33" are entered
     Then user is not created and error "password and password confirmation do not match" is reported
+
