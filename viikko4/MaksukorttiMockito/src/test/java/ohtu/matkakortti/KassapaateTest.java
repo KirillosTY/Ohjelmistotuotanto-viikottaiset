@@ -40,5 +40,26 @@ public class KassapaateTest {
         verify(kortti, times(1)).getSaldo();
         verify(kortti, times(0)).osta(anyInt());
     }
+
+    @Test
+    public void kortilleLadataanPosSumma(){
+
+        when(kassa.lataa(kortti,10)).thenReturn(10);
+        when(kassa.lataa(kortti,kortti.getSaldo()+10)).thenReturn(10);
+
+        verify(kortti, times(2)).lataa(10);
+
+
+    }
+    @Test
+    public void kortilleLadataanNegSumma(){
+
+        when(kassa.lataa(kortti,-10)).thenReturn(0);
+        when(kortti.getSaldo()).thenReturn(0);
+
+
+        verify(kortti, times(0)).lataa(anyInt());
+        verify(kortti, times(1)).getSaldo();
+    }
       
 }
