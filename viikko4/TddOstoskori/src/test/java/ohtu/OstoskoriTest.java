@@ -19,7 +19,16 @@ public class OstoskoriTest {
     public void ostoskorinHintaJaTavaroidenMaaraAlussa() { 
         assertEquals(0, kori.hinta());
  
-        // ...
+        assertEquals(0,kori.tavaroitaKorissa());
+    }
+
+    @Test
+    public void yhdenTuotteenLisaamisenJalkeenKorissaYksiTuote() {
+        Tuote maito = new Tuote("maito", 3);
+
+        kori.lisaaTuote(maito);
+
+        assertEquals(1,kori.tavaroitaKorissa());
     }
 
 }
