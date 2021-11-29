@@ -1,27 +1,46 @@
 package ohtu;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Ostoskori {
- 
-    public int tavaroitaKorissa() {
-        // kertoo korissa olevien tavaroiden lukumäärän
-        // eli jos koriin lisätty 2 kpl tuotetta "maito", 
-        //   tulee metodin palauttaa 2 
-        // jos korissa on 1 kpl tuotetta "maito" ja 1 kpl tuotetta "juusto", 
-        //   tulee metodin palauttaa 2   
 
-        return -1;
+    private HashMap<String,Ostos> ostokset = new HashMap<>();
+
+    public int tavaroitaKorissa() {
+        int lkm= 0;
+
+        for(Ostos o: ostokset.values()){
+
+            lkm += o.lukumaara();
+        }
+
+
+        return ostokset.size();
+
     }
  
     public int hinta() {
-        // kertoo korissa olevien tuotteiden yhteenlasketun hinnan
- 
-        return -1;
+        int summa= 0;
+
+        for(Ostos o: ostokset.values()){
+
+            summa += o.lukumaara()*o.hinta();
+        }
+
+        return summa;
     }
  
     public void lisaaTuote(Tuote lisattava) {
-        // lisää tuotteen
+        Ostos o = checkIfThere(lisattava);
+
+        if(o== null){
+            ostokset.put(lisattava.getNimi(), new Ostos(lisattava));
+        } else {
+
+            ostokset.get(lisattava.getNimi()).muutaLukumaaraa(1);
+        }
+
     }
  
     public void poista(Tuote poistettava) {
@@ -36,5 +55,13 @@ public class Ostoskori {
  
     public void tyhjenna() {
         // tyhjentää korin
+    }
+
+    public Ostos checkIfThere(Tuote t){
+        if(ostokset.containsKey(t.getNimi())){
+            return ostokset.get(t.getNimi());
+        }
+
+        return null;
     }
 }
