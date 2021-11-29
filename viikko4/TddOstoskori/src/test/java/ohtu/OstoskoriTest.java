@@ -90,4 +90,37 @@ public class OstoskoriTest {
 
         assertEquals(kori.ostokset().size(),1);
     }
+
+    @Test
+    public void yhdenTuotteenLisaamisenKorissaYksiOstosOlioJollaOikeaTuotteenNimiJaMaara() {
+        Tuote maito = new Tuote("maito", 3);
+        kori.lisaaTuote(maito);
+
+        Ostos ostos = kori.ostokset().get(0);
+
+        assertEquals("maito", ostos.tuotteenNimi());
+
+    }
+
+    @Test
+    public void kahdenTuotteenLisaamisenJalkeenKorissaKaksiOstosOliota() {
+        kori.lisaaTuote(new Tuote("maito", 3));
+        kori.lisaaTuote(new Tuote("maitoL", 3));
+        List<Ostos> ostokset = kori.ostokset();
+
+        assertEquals(2, kori.ostokset().size());
+    }
+
+
+    @Test
+    public void KahdenSamanTuotteenLisaamisenJalkeenKorinLkmKahdelle() {
+        Tuote maito = new Tuote("maito", 3);
+
+        kori.lisaaTuote(maito);
+        kori.lisaaTuote(maito);
+       
+        assertEquals(2,kori.ostokset().get(0).lukumaara());
+    }
+
+
 }
