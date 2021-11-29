@@ -52,7 +52,8 @@ public class Ostoskori {
     }
 
     public void poista(Tuote poistettava) {
-        ostokset.get(poistettava.getNimi()).muutaLukumaaraa(0);
+        ostokset.get(poistettava.getNimi()).muutaLukumaaraa(-1);
+
         if(ostokset.get(poistettava.getNimi()).lukumaara()==0){
             ostokset.remove(poistettava.getNimi());
         }

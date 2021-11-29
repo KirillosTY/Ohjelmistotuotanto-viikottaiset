@@ -131,4 +131,16 @@ public class OstoskoriTest {
     }
 
 
+    @Test
+    public void KahdestaYhdenPoistaminenJattaaYhden(){
+        Tuote maito = new Tuote("maito", 3);
+
+        kori.lisaaTuote(maito);
+        kori.lisaaTuote(maito);
+        kori.poista(maito);
+        assertEquals(1,kori.ostokset().get(0).lukumaara());
+
+
+
+    }
 }
