@@ -48,7 +48,7 @@ public class OstoskoriTest {
         kori.lisaaTuote(maitoL);
         assertEquals(2,kori.tavaroitaKorissa());
     }
-/*
+
     @Test
     public void KahdenTuotteenLisaamisenJalkeenKorinHintaKahdelle() {
         Tuote maito = new Tuote("maito", 3);
@@ -57,6 +57,7 @@ public class OstoskoriTest {
         kori.lisaaTuote(maitoL);
         assertEquals(6,kori.hinta());
     }
+    /*
 
     @Test
     public void KahdenSamanTuotteenLisaamisenJalkeenKorissaKaksiTuotetta() {
