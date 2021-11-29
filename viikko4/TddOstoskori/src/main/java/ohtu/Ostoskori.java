@@ -16,7 +16,7 @@ public class Ostoskori {
         }
 
 
-        return ostokset.size();
+        return lkm;
 
     }
  
@@ -39,6 +39,7 @@ public class Ostoskori {
         } else {
 
             ostokset.get(lisattava.getNimi()).muutaLukumaaraa(1);
+
         }
 
     }
