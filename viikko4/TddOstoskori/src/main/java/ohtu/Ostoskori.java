@@ -5,12 +5,17 @@ import java.util.List;
 
 public class Ostoskori {
 
-    private HashMap<String,Ostos> ostokset = new HashMap<>();
+     HashMap<String,Ostos> ostokset;
+
+    public Ostoskori(){
+        this.ostokset = new HashMap<>();
+
+    }
 
     public int tavaroitaKorissa() {
         int lkm= 0;
 
-        for(Ostos o: ostokset.values()){
+        for(Ostos o: this.ostokset.values()){
 
             lkm += o.lukumaara();
         }
@@ -23,10 +28,11 @@ public class Ostoskori {
     public int hinta() {
         int summa= 0;
 
-        for(Ostos o: ostokset.values()){
+        for(Ostos o: this.ostokset.values()){
 
-            summa += o.lukumaara()*o.hinta();
+            summa += o.hinta();
         }
+        
 
         return summa;
     }
@@ -43,9 +49,12 @@ public class Ostoskori {
         }
 
     }
- 
+
     public void poista(Tuote poistettava) {
-        // poistaa tuotteen
+        ostokset.get(poistettava.getNimi()).muutaLukumaaraa(0);
+        if(ostokset.get(poistettava.getNimi()).lukumaara()==0){
+            ostokset.remove(poistettava.getNimi());
+        }
     }
  
     public List<Ostos> ostokset() {
@@ -53,13 +62,17 @@ public class Ostoskori {
  
         return null;
     }
- 
+
+
     public void tyhjenna() {
-        // tyhjentää korin
+        ostokset.clear();
+
     }
 
     public Ostos checkIfThere(Tuote t){
-        if(ostokset.containsKey(t.getNimi())){
+
+        Ostos o =ostokset.get(t.getNimi());
+        if(o!=null){
             return ostokset.get(t.getNimi());
         }
 

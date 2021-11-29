@@ -12,6 +12,7 @@ public class OstoskoriTest {
     @Before
     public void setUp() {
         kori = new Ostoskori();
+
     }
 
     // step 1
@@ -67,15 +68,15 @@ public class OstoskoriTest {
         kori.lisaaTuote(maito);
         assertEquals(2,kori.tavaroitaKorissa());
     }
-    /*
+
 
 
     @Test
     public void KahdenSamanTuotteenLisaamisenJalkeenKorinHintaKahdelle() {
         Tuote maito = new Tuote("maito", 3);
-
+        kori.tyhjenna();
         kori.lisaaTuote(maito);
         kori.lisaaTuote(maito);
         assertEquals(6,kori.hinta());
-    }*/
+    }
 }
