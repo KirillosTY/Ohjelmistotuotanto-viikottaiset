@@ -1,5 +1,6 @@
 package ohtu;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class Ostoskori {
 
             summa += o.hinta();
         }
-        
+
 
         return summa;
     }
@@ -56,11 +57,14 @@ public class Ostoskori {
             ostokset.remove(poistettava.getNimi());
         }
     }
- 
+
     public List<Ostos> ostokset() {
-        // palauttaa listan jossa on korissa olevat ostokset
- 
-        return null;
+
+
+        List<Ostos> l = new ArrayList<>();
+        l.addAll(ostokset.values());
+
+        return l ;
     }
 
 
